@@ -31,5 +31,11 @@ namespace UtinComputer.UI
             _foregroundTween?.Kill();
             _foregroundTween = foregroundRectTransform.DOLocalMoveY(0, moveDownTime).SetEase(Ease.OutQuint);
         }
+
+
+
+
+
+
     }
 }
