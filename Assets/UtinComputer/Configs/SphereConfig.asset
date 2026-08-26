@@ -26,6 +26,7 @@ MonoBehaviour:
   <ReleaseVanishTime>k__BackingField: 0.18
   <ShakeAmplitudeRatio>k__BackingField: 0.035
   <ShakeFrequency>k__BackingField: 28
+  <ShakeRampPower>k__BackingField: 0.3
   <RecoilRatio>k__BackingField: 0.14
   <RecoilReturnTime>k__BackingField: 0.3
   <ReleasePunchRatio>k__BackingField: 0.22

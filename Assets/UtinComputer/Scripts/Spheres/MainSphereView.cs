@@ -92,10 +92,15 @@ namespace UtinComputer.Spheres
         private Vector3 Shake()
         {
             float time = Time.time * _config.ShakeFrequency;
-            float amplitude = _config.ShakeAmplitudeRatio * _sphereCharge.Radius.Value * _sphereCharge.ChargeProgress;
+            float amplitude = _config.ShakeAmplitudeRatio * _sphereCharge.Radius.Value * ShakeRamp();
             Vector3 noise = new(Mathf.PerlinNoise(time, 0f) - .5f, Mathf.PerlinNoise(0f, time) - .5f, 0f);
 
             return noise * (amplitude * 2f);
+        }
+
+        private float ShakeRamp()
+        {
+            return Mathf.Pow(_sphereCharge.ChargeProgress, _config.ShakeRampPower);
         }
 
         private float Recoil()

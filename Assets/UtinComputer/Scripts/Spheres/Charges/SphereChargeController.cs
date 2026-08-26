@@ -104,8 +104,9 @@ namespace UtinComputer.Spheres.Charges
             if (_radius.Value > _config.MinRadius)
                 return;
 
-            _isCharging.Value = false;
             _isLost.Value = true;
+
+            EndCharge();
         }
 
         private float ChargeVolumeSpeed()

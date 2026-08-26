@@ -27,6 +27,7 @@ namespace UtinComputer.Spheres
         [field: Header("Sphere Feedback")]
         [field: SerializeField, Min(0f)] public float ShakeAmplitudeRatio { get; private set; } = .035f;
         [field: SerializeField, Min(0f)] public float ShakeFrequency { get; private set; } = 28f;
+        [field: SerializeField, Range(.05f, 1f)] public float ShakeRampPower { get; private set; } = .3f;
         [field: SerializeField, Min(0f)] public float RecoilRatio { get; private set; } = .14f;
         [field: SerializeField, Min(0f)] public float RecoilReturnTime { get; private set; } = .3f;
         [field: SerializeField, Min(0f)] public float ReleasePunchRatio { get; private set; } = .22f;
