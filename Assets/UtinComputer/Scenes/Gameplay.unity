@@ -528,7 +528,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.03, z: 250}
-  m_LocalScale: {x: 50, y: 1, z: 0.1}
+  m_LocalScale: {x: 50, y: 1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 397345436}
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Installers.SpheresContextInstaller
   mainSphereView: {fileID: 1614898683}
-  shotSphereView: {fileID: 1994208320}
+  shootingSphereView: {fileID: 1994208320}
   sphereConfig: {fileID: 11400000, guid: fa6d5d52f01a4f54db6b6edb1d5517a3, type: 2}
 --- !u!114 &630011780
 MonoBehaviour:
@@ -1429,7 +1429,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1614898682}
@@ -2148,7 +2148,7 @@ Transform:
   m_GameObject: {fileID: 1994208318}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 15}
+  m_LocalPosition: {x: 0, y: 0.5, z: 17.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2166,9 +2166,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a9a055b5cf03e643855e79984f7ffbf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Spheres.ShotSphereView
+  m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Spheres.ShootingSphereView
   body: {fileID: 616457345}
-  direction: {x: -1, y: 0, z: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -14,7 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Spheres.SphereConfig
   <StartRadius>k__BackingField: 5
   <MinRadius>k__BackingField: 0.35
-  <ChargeVolumePerSecond>k__BackingField: 0.6
-  <ShakeAmplitude>k__BackingField: 0.12
-  <ShakeFrequency>k__BackingField: 24
-  <LoseCollapseTime>k__BackingField: 0.3
+  <ShootDirection>k__BackingField: {x: 0, y: 0, z: 1}
+  <ChargeRatePerSecond>k__BackingField: 0.275
+  <ChargeAccelerationTime>k__BackingField: 0.35
+  <EmergeTime>k__BackingField: 0.2
+  <StretchPerGrowthSpeed>k__BackingField: 0.24
+  <MaxStretch>k__BackingField: 0.45
+  <StretchSmoothing>k__BackingField: 18
+  <ReleaseKickRatio>k__BackingField: 1.6
+  <ReleaseRoundTime>k__BackingField: 0.16
+  <ReleaseVanishTime>k__BackingField: 0.18
+  <ShakeAmplitudeRatio>k__BackingField: 0.035
+  <ShakeFrequency>k__BackingField: 28
+  <RecoilRatio>k__BackingField: 0.14
+  <RecoilReturnTime>k__BackingField: 0.3
+  <ReleasePunchRatio>k__BackingField: 0.22
+  <ReleasePunchTime>k__BackingField: 0.5
+  <LoseCollapseTime>k__BackingField: 0.45

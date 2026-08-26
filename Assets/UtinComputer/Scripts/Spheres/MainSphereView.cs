@@ -10,23 +10,28 @@ namespace UtinComputer.Spheres
         [SerializeField] private Transform body;
 
         private SphereConfig _config;
-        private ChargeController _charge;
+        private SphereChargeController _sphereCharge;
         private Vector3 _origin;
+        private Tween _returnTween;
+        private Tween _punchTween;
 
         [Inject]
-        public void Construct(SphereConfig config, ChargeController charge)
+        public void Construct(SphereConfig config, SphereChargeController sphereCharge)
         {
             _config = config;
-            _charge = charge;
+            _sphereCharge = sphereCharge;
         }
+
+        public Vector3 Center => body.position;
 
         private void Start()
         {
             _origin = body.localPosition;
 
-            _charge.Radius.Subscribe(OnRadius).AddTo(this);
-            _charge.IsCharging.Subscribe(OnCharging).AddTo(this);
-            _charge.IsLost.Subscribe(OnLost).AddTo(this);
+            _sphereCharge.Radius.Subscribe(OnRadius).AddTo(this);
+            _sphereCharge.ChargeStarted.Subscribe(OnChargeStarted).AddTo(this);
+            _sphereCharge.ChargeReleased.Subscribe(OnChargeReleased).AddTo(this);
+            _sphereCharge.IsLost.Subscribe(OnLost).AddTo(this);
 
             Observable.EveryUpdate()
                 .Where(IsCharging)
@@ -34,22 +39,44 @@ namespace UtinComputer.Spheres
                 .AddTo(this);
         }
 
+        private void OnDestroy()
+        {
+            _returnTween?.Kill();
+            _punchTween?.Kill();
+        }
+
         private void OnRadius(float radius)
         {
+            if (_punchTween != null && _punchTween.IsActive() && _punchTween.IsPlaying())
+                return;
+
             body.localScale = Vector3.one * (radius * 2f);
         }
 
-        private void OnCharging(bool charging)
+        private void OnChargeStarted(Unit unit)
         {
-            if (charging)
-                return;
+            _returnTween?.Kill();
+            _punchTween?.Kill();
 
-            body.localPosition = _origin;
+            body.localScale = Vector3.one * (_sphereCharge.Radius.Value * 2f);
         }
 
         private void OnChargeUpdate(long frame)
         {
-            body.localPosition = _origin + Shake();
+            body.localPosition = _origin + Shake() - _sphereCharge.ShootDirection * Recoil();
+        }
+
+        private void OnChargeReleased(float shotRadius)
+        {
+            _returnTween?.Kill();
+            _returnTween = body.DOLocalMove(_origin, _config.RecoilReturnTime).SetEase(Ease.OutBack);
+
+            if (_sphereCharge.IsLost.Value)
+                return;
+
+            _punchTween?.Kill();
+            _punchTween = body.DOPunchScale(Vector3.one * (_sphereCharge.Radius.Value * 2f * _config.ReleasePunchRatio),
+                _config.ReleasePunchTime, 6, .8f);
         }
 
         private void OnLost(bool lost)
@@ -57,21 +84,28 @@ namespace UtinComputer.Spheres
             if (!lost)
                 return;
 
+            _returnTween?.Kill();
+            _punchTween?.Kill();
             body.DOScale(0f, _config.LoseCollapseTime).SetEase(Ease.InBack);
         }
 
         private Vector3 Shake()
         {
             float time = Time.time * _config.ShakeFrequency;
-            float amplitude = _config.ShakeAmplitude * Mathf.InverseLerp(_config.StartRadius, _config.MinRadius, _charge.Radius.Value);
+            float amplitude = _config.ShakeAmplitudeRatio * _sphereCharge.Radius.Value * _sphereCharge.ChargeProgress;
             Vector3 noise = new(Mathf.PerlinNoise(time, 0f) - .5f, Mathf.PerlinNoise(0f, time) - .5f, 0f);
 
             return noise * (amplitude * 2f);
         }
 
+        private float Recoil()
+        {
+            return _config.RecoilRatio * _sphereCharge.Radius.Value * _sphereCharge.ChargeProgress;
+        }
+
         private bool IsCharging(long frame)
         {
-            return _charge.IsCharging.Value;
+            return _sphereCharge.IsCharging.Value;
         }
     }
 }
