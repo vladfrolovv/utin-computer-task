@@ -7,11 +7,14 @@ namespace UtinComputer.Installers
     {
         [SerializeField] private CameraView cameraView;
         [SerializeField] private CameraRigView cameraRigView;
+        [SerializeField] private CameraConfig cameraConfig;
 
         public override void InstallBindings()
         {
             Container.Bind<CameraView>().FromInstance(cameraView).AsSingle();
             Container.Bind<CameraRigView>().FromInstance(cameraRigView).AsSingle();
+
+            Container.Bind<CameraConfig>().FromInstance(cameraConfig).AsSingle();
 
             Container.BindInterfacesAndSelfTo<CameraFollowController>().AsSingle();
             Container.BindInterfacesAndSelfTo<CameraShakeController>().AsSingle();

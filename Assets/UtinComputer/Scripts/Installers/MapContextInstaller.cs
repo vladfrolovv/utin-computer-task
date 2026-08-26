@@ -1,4 +1,5 @@
 using UnityEngine;
+using UtinComputer.Core;
 using UtinComputer.Map;
 using Zenject;
 namespace UtinComputer.Installers
@@ -13,6 +14,8 @@ namespace UtinComputer.Installers
         {
             Container.Bind<MapView>().FromInstance(mapView).AsSingle();
             Container.Bind<MapConfig>().FromInstance(mapConfig).AsSingle();
+
+            Container.Bind<DestroyablesController>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<MapGenerationController>().AsSingle();
 

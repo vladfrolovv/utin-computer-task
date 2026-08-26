@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
+using UtinComputer.Cameras;
 using UtinComputer.Spheres.Charges;
 using Zenject;
 namespace UtinComputer.Spheres
@@ -11,15 +12,17 @@ namespace UtinComputer.Spheres
 
         private SphereConfig _config;
         private SphereChargeController _sphereCharge;
+        private CameraFollowController _cameraFollow;
         private Vector3 _origin;
         private Tween _returnTween;
         private Tween _punchTween;
 
         [Inject]
-        public void Construct(SphereConfig config, SphereChargeController sphereCharge)
+        public void Construct(SphereConfig config, SphereChargeController sphereCharge, CameraFollowController cameraFollow)
         {
             _config = config;
             _sphereCharge = sphereCharge;
+            _cameraFollow = cameraFollow;
         }
 
         public Vector3 Center => body.position;
@@ -27,6 +30,8 @@ namespace UtinComputer.Spheres
         private void Start()
         {
             _origin = body.localPosition;
+
+            _cameraFollow.SetTarget(transform);
 
             _sphereCharge.Radius.Subscribe(OnRadius).AddTo(this);
             _sphereCharge.ChargeStarted.Subscribe(OnChargeStarted).AddTo(this);

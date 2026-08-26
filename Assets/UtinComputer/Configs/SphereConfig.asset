@@ -21,9 +21,13 @@ MonoBehaviour:
   <StretchPerGrowthSpeed>k__BackingField: 0.24
   <MaxStretch>k__BackingField: 0.45
   <StretchSmoothing>k__BackingField: 18
-  <ReleaseKickRatio>k__BackingField: 1.6
-  <ReleaseRoundTime>k__BackingField: 0.16
   <ReleaseVanishTime>k__BackingField: 0.18
+  <ShotSpeed>k__BackingField: 60
+  <ShotMaxDistance>k__BackingField: 200
+  <FlightStretch>k__BackingField: 0.3
+  <BlastRadiusPerShotRadius>k__BackingField: 6
+  <BlastWaveSpeed>k__BackingField: 45
+  <BlastWaveGroundHeight>k__BackingField: 0.06
   <ShakeAmplitudeRatio>k__BackingField: 0.035
   <ShakeFrequency>k__BackingField: 28
   <ShakeRampPower>k__BackingField: 0.3

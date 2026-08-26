@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -6,8 +7,9 @@ namespace UtinComputer.Map
 {
     public class MapView : MonoBehaviour
     {
+        private readonly Dictionary<TreeView, TreeViewPool> _spawnedPools = new();
+        private readonly Dictionary<TreeView, IDisposable> _spawnedSubscriptions = new();
         private readonly List<TreeView> _spawned = new();
-        private readonly List<TreeViewPool> _spawnedPools = new();
 
         private MapGenerationController _map;
         private List<TreeViewPool> _pools;
@@ -38,17 +40,35 @@ namespace UtinComputer.Map
                 tree.Apply(info);
 
                 _spawned.Add(tree);
-                _spawnedPools.Add(pool);
+                _spawnedPools[tree] = pool;
+                _spawnedSubscriptions[tree] = tree.Destroyed.Subscribe(Despawn);
             }
+        }
+
+        private void Despawn(TreeView tree)
+        {
+            if (!_spawnedPools.TryGetValue(tree, out TreeViewPool pool))
+                return;
+
+            _spawnedSubscriptions[tree].Dispose();
+            _spawnedSubscriptions.Remove(tree);
+            _spawnedPools.Remove(tree);
+            _spawned.Remove(tree);
+
+            pool.Despawn(tree);
         }
 
         private void Clear()
         {
-            for (int i = 0; i < _spawned.Count; i++)
-                _spawnedPools[i].Despawn(_spawned[i]);
+            foreach (TreeView tree in _spawned)
+            {
+                _spawnedSubscriptions[tree].Dispose();
+                _spawnedPools[tree].Despawn(tree);
+            }
 
             _spawned.Clear();
             _spawnedPools.Clear();
+            _spawnedSubscriptions.Clear();
         }
 
         private int PoolIndex(float variant)

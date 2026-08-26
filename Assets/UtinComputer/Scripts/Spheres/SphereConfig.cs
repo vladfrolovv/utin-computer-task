@@ -20,9 +20,17 @@ namespace UtinComputer.Spheres
         [field: SerializeField, Min(0f)] public float StretchSmoothing { get; private set; } = 18f;
 
         [field: Header("Shot Release")]
-        [field: SerializeField, Min(0f)] public float ReleaseKickRatio { get; private set; } = 1.6f;
-        [field: SerializeField, Min(0f)] public float ReleaseRoundTime { get; private set; } = .16f;
         [field: SerializeField, Min(0f)] public float ReleaseVanishTime { get; private set; } = .18f;
+
+        [field: Header("Shot Flight")]
+        [field: SerializeField, Min(0f)] public float ShotSpeed { get; private set; } = 60f;
+        [field: SerializeField, Min(0f)] public float ShotMaxDistance { get; private set; } = 200f;
+        [field: SerializeField, Range(0f, 1f)] public float FlightStretch { get; private set; } = .3f;
+
+        [field: Header("Blast")]
+        [field: SerializeField, Min(1f)] public float BlastRadiusPerShotRadius { get; private set; } = 6f;
+        [field: SerializeField, Min(1f)] public float BlastWaveSpeed { get; private set; } = 45f;
+        [field: SerializeField] public float BlastWaveGroundHeight { get; private set; } = .06f;
 
         [field: Header("Sphere Feedback")]
         [field: SerializeField, Min(0f)] public float ShakeAmplitudeRatio { get; private set; } = .035f;

@@ -14,5 +14,10 @@ namespace UtinComputer.Utils
         {
             return Mathf.Pow(Mathf.Max(volume, 0f) / SphereVolumeFactor, 1f / 3f);
         }
+
+        public static Vector3 Flat(this Vector3 vector)
+        {
+            return new Vector3(vector.x, 0f, vector.z);
+        }
     }
 }

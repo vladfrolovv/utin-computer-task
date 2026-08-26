@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UtinComputer.Spheres;
 using UtinComputer.Spheres.Charges;
+using UtinComputer.Spheres.Shots;
 using Zenject;
 namespace UtinComputer.Installers
 {
@@ -18,6 +19,7 @@ namespace UtinComputer.Installers
             Container.Bind<SphereConfig>().FromInstance(sphereConfig).AsSingle();
 
             Container.BindInterfacesAndSelfTo<SphereChargeController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ShootingSphereController>().AsSingle();
         }
     }
 }

@@ -1,19 +1,24 @@
-﻿using System;
+using System;
 using UniRx;
 using UnityEngine;
 namespace UtinComputer.Cameras
 {
     public class CameraFollowController : IDisposable
     {
+        private readonly CameraConfig _config;
         private readonly CameraRigView _rig;
         private readonly CompositeDisposable _compositeDisposable = new();
 
         private Transform _currentTarget;
-        private Vector3 _targetDela;
+        private Vector3 _targetDelta;
+        private float _smoothing;
 
-        public CameraFollowController(CameraRigView cameraRigView)
+        public CameraFollowController(CameraConfig config, CameraRigView cameraRigView)
         {
+            _config = config;
             _rig = cameraRigView;
+            _smoothing = config.FollowSmoothing;
+
             Observable.EveryLateUpdate().Subscribe(Follow).AddTo(_compositeDisposable);
         }
 
@@ -25,16 +30,30 @@ namespace UtinComputer.Cameras
 
         public void SetTarget(Transform target)
         {
-            _currentTarget = target;
-            _targetDela = _rig.transform.position - target.position;
+            SetTarget(target, _config.FollowSmoothing);
         }
 
-        private void Follow(long l)
+        public void SetTarget(Transform target, float smoothing)
+        {
+            if (target == null)
+                return;
+
+            if (_currentTarget == null)
+                _targetDelta = _rig.transform.position - target.position;
+
+            _currentTarget = target;
+            _smoothing = smoothing;
+        }
+
+        private void Follow(long frame)
         {
             if (_currentTarget == null)
                 return;
 
-            _rig.transform.position = Vector3.Lerp(_rig.transform.position, _currentTarget.position + _targetDela, Time.deltaTime);
+            Vector3 desired = _currentTarget.position + _targetDelta;
+
+            _rig.transform.position = Vector3.Lerp(_rig.transform.position, desired,
+                1f - Mathf.Exp(-_smoothing * Time.deltaTime));
         }
     }
 }

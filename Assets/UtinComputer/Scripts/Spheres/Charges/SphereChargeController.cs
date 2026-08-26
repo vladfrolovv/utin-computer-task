@@ -14,6 +14,7 @@ namespace UtinComputer.Spheres.Charges
         private readonly ReactiveProperty<float> _shotGrowthSpeed = new();
         private readonly ReactiveProperty<bool> _isCharging = new();
         private readonly ReactiveProperty<bool> _isLost = new();
+        private readonly ReactiveProperty<bool> _isBlocked = new();
 
         private readonly Subject<Unit> _chargeStarted = new();
         private readonly Subject<float> _chargeReleased = new();
@@ -33,6 +34,7 @@ namespace UtinComputer.Spheres.Charges
         public IReadOnlyReactiveProperty<float> ShotGrowthSpeed => _shotGrowthSpeed;
         public IReadOnlyReactiveProperty<bool> IsCharging => _isCharging;
         public IReadOnlyReactiveProperty<bool> IsLost => _isLost;
+        public IReadOnlyReactiveProperty<bool> IsBlocked => _isBlocked;
 
         public IObservable<Unit> ChargeStarted => _chargeStarted;
         public IObservable<float> ChargeReleased => _chargeReleased;
@@ -54,7 +56,7 @@ namespace UtinComputer.Spheres.Charges
         {
             EnsureStarted();
 
-            if (_isLost.Value || _isCharging.Value)
+            if (_isLost.Value || _isBlocked.Value || _isCharging.Value)
                 return;
 
             _chargedVolume = _radius.Value.ToSphereVolume();
@@ -64,6 +66,11 @@ namespace UtinComputer.Spheres.Charges
             _isCharging.Value = true;
 
             _chargeStarted.OnNext(Unit.Default);
+        }
+
+        public void SetBlocked(bool blocked)
+        {
+            _isBlocked.Value = blocked;
         }
 
         public void EndCharge()
