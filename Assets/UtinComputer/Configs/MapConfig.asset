@@ -24,9 +24,9 @@ MonoBehaviour:
   <PooledTreesPerPrefab>k__BackingField: 256
   <TreeRadiusPerScale>k__BackingField: 0.35
   <TreeFallAngle>k__BackingField: 88
-  <TreeFallTime>k__BackingField: 0.5
+  <TreeFallTime>k__BackingField: 0.3
   <TreeSettleAngle>k__BackingField: 6
-  <TreeSettleTime>k__BackingField: 0.14
-  <TreeLieTime>k__BackingField: 1.2
+  <TreeSettleTime>k__BackingField: 0.1
+  <TreeLieTime>k__BackingField: 0.15
   <TreeSinkDepth>k__BackingField: 1.2
-  <TreeSinkTime>k__BackingField: 0.6
+  <TreeSinkTime>k__BackingField: 0.3

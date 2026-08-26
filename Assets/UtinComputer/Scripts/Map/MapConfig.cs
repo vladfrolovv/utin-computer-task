@@ -36,16 +36,16 @@ namespace UtinComputer.Map
         [Tooltip("Angle in degrees a falling tree tips over to.")]
         [field: SerializeField] public float TreeFallAngle { get; private set; } = 88f;
         [Tooltip("Seconds a tree takes to tip over once the blast wave reaches it.")]
-        [field: SerializeField] public float TreeFallTime { get; private set; } = .5f;
+        [field: SerializeField] public float TreeFallTime { get; private set; } = .3f;
         [Tooltip("Degrees a fallen tree bounces back after it hits the ground.")]
         [field: SerializeField] public float TreeSettleAngle { get; private set; } = 6f;
         [Tooltip("Seconds the bounce back takes.")]
-        [field: SerializeField] public float TreeSettleTime { get; private set; } = .14f;
+        [field: SerializeField] public float TreeSettleTime { get; private set; } = .1f;
         [Tooltip("Seconds a fallen tree lies on the ground before it sinks away.")]
-        [field: SerializeField] public float TreeLieTime { get; private set; } = 1.2f;
+        [field: SerializeField] public float TreeLieTime { get; private set; } = .15f;
         [Tooltip("Depth in units a fallen tree sinks through the ground, per one unit of tree scale.")]
         [field: SerializeField] public float TreeSinkDepth { get; private set; } = 1.2f;
         [Tooltip("Seconds the sinking takes before the tree returns to the pool.")]
-        [field: SerializeField] public float TreeSinkTime { get; private set; } = .6f;
+        [field: SerializeField] public float TreeSinkTime { get; private set; } = .3f;
     }
 }

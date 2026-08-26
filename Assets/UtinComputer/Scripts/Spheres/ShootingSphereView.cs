@@ -48,6 +48,7 @@ namespace UtinComputer.Spheres
             _shootingSphere.Launched.Subscribe(OnLaunched).AddTo(this);
             _shootingSphere.Position.Subscribe(OnPosition).AddTo(this);
             _shootingSphere.Exploded.Subscribe(OnExploded).AddTo(this);
+            _shootingSphere.Settled.Subscribe(OnSettled).AddTo(this);
 
             Observable.EveryUpdate()
                 .Where(IsCharging)
@@ -106,7 +107,7 @@ namespace UtinComputer.Spheres
 
             body.gameObject.SetActive(true);
             body.position = origin;
-            body.rotation = Quaternion.LookRotation(_sphereCharge.ShootDirection);
+            body.rotation = FlightRotation();
             body.localScale = Scale(_shootingSphere.Radius.Value * 2f, _stretch);
 
             _cameraFollow.SetTarget(body, _cameraConfig.ShotFollowSmoothing);
@@ -118,18 +119,23 @@ namespace UtinComputer.Spheres
                 return;
 
             body.position = position;
+            body.rotation = FlightRotation();
             body.localScale = Scale(_shootingSphere.Radius.Value * 2f, _config.FlightStretch);
         }
 
         private void OnExploded(BlastInfo blast)
         {
-            _cameraFollow.SetTarget(_mainSphere.transform);
             blastWave.Play(blast, _config.BlastWaveGroundHeight);
 
             _explodeSequence?.Kill();
             _explodeSequence = DOTween.Sequence()
                 .Append(body.DOScale(Vector3.zero, _config.ReleaseVanishTime).SetEase(Ease.InBack))
                 .OnComplete(Hide);
+        }
+
+        private void OnSettled(Unit unit)
+        {
+            _cameraFollow.SetTarget(_mainSphere.transform);
         }
 
         private void ApplyCharge()
@@ -140,6 +146,13 @@ namespace UtinComputer.Spheres
             body.rotation = Quaternion.LookRotation(direction);
             body.position = _mainSphere.Center + direction * (_sphereCharge.Radius.Value + radius);
             body.localScale = Scale(radius * 2f, _stretch);
+        }
+
+        private Quaternion FlightRotation()
+        {
+            Vector3 velocity = _shootingSphere.Velocity;
+
+            return velocity.sqrMagnitude > .0001f ? Quaternion.LookRotation(velocity) : body.rotation;
         }
 
         private Vector3 Scale(float diameter, float stretch)

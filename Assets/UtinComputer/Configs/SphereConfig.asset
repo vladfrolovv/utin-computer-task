@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2a6e6b2152b9047946d979efcc3e16, type: 3}
   m_Name: SphereConfig
   m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Spheres.SphereConfig
-  <StartRadius>k__BackingField: 5
+  <StartRadius>k__BackingField: 10
   <MinRadius>k__BackingField: 0.35
   <ShootDirection>k__BackingField: {x: 0, y: 0, z: 1}
   <ChargeRatePerSecond>k__BackingField: 0.275
@@ -23,11 +23,15 @@ MonoBehaviour:
   <StretchSmoothing>k__BackingField: 18
   <ReleaseVanishTime>k__BackingField: 0.18
   <ShotSpeed>k__BackingField: 60
-  <ShotMaxDistance>k__BackingField: 200
+  <ShotArcHeight>k__BackingField: 6
+  <ShotMinFlightTime>k__BackingField: 0.3
+  <ShotGroundHeight>k__BackingField: 0
+  <ShotMaxDistance>k__BackingField: 80
   <FlightStretch>k__BackingField: 0.3
   <BlastRadiusPerShotRadius>k__BackingField: 6
   <BlastWaveSpeed>k__BackingField: 45
   <BlastWaveGroundHeight>k__BackingField: 0.06
+  <PostBlastDelay>k__BackingField: 1
   <ShakeAmplitudeRatio>k__BackingField: 0.035
   <ShakeFrequency>k__BackingField: 28
   <ShakeRampPower>k__BackingField: 0.3

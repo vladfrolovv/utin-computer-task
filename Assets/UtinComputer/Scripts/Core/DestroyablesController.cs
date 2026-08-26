@@ -20,15 +20,36 @@ namespace UtinComputer.Core
             _destroyables.Remove(destroyable);
         }
 
-        public bool Overlaps(Vector3 center, float radius)
+        public bool TryGetContactDistance(Vector3 origin, Vector3 direction, float radius, out float distance)
         {
+            distance = float.PositiveInfinity;
+
+            bool found = false;
+
             foreach (IDestroyable destroyable in _destroyables)
             {
-                if (IsOverlapped(destroyable, center, radius))
-                    return true;
+                Vector3 delta = (destroyable.Position - origin).Flat();
+                float forward = Vector3.Dot(delta, direction);
+
+                if (forward <= 0f)
+                    continue;
+
+                float reach = radius + destroyable.Radius;
+                float side = (delta - direction * forward).magnitude;
+
+                if (side > reach)
+                    continue;
+
+                float contact = forward - Mathf.Sqrt(Mathf.Max(reach * reach - side * side, 0f));
+
+                if (contact >= distance)
+                    continue;
+
+                distance = contact;
+                found = true;
             }
 
-            return false;
+            return found;
         }
 
         public void DestroyOverlapped(BlastInfo blast)
@@ -37,7 +58,7 @@ namespace UtinComputer.Core
 
             foreach (IDestroyable destroyable in _destroyables)
             {
-                if (IsOverlapped(destroyable, blast.Origin, blast.Radius))
+                if (IsInRange(destroyable, blast.Origin, blast.Radius))
                     _overlapped.Add(destroyable);
             }
 
@@ -47,7 +68,7 @@ namespace UtinComputer.Core
             _overlapped.Clear();
         }
 
-        private static bool IsOverlapped(IDestroyable destroyable, Vector3 center, float radius)
+        private static bool IsInRange(IDestroyable destroyable, Vector3 center, float radius)
         {
             float reach = radius + destroyable.Radius;
 
