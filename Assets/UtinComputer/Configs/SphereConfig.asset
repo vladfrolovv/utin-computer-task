@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Spheres.SphereConfig
   <StartRadius>k__BackingField: 10
   <MinRadius>k__BackingField: 0.35
+  <TravelReserveRadius>k__BackingField: 3
   <ShootDirection>k__BackingField: {x: 0, y: 0, z: 1}
   <ChargeRatePerSecond>k__BackingField: 0.275
   <ChargeAccelerationTime>k__BackingField: 0.35

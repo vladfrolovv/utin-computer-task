@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UtinComputer.Finish;
+using UtinComputer.Spheres;
 using UtinComputer.Utils;
 using Zenject;
 using Random = System.Random;
@@ -10,14 +12,18 @@ namespace UtinComputer.Map
     public class MapGenerationController : IInitializable
     {
         private readonly MapConfig _config;
+        private readonly FinishConfig _finishConfig;
+        private readonly SphereConfig _sphereConfig;
         private readonly List<TreeInfo> _trees = new();
         private readonly Subject<IReadOnlyList<TreeInfo>> _generated = new();
 
         private bool _isGenerated;
 
-        public MapGenerationController(MapConfig config)
+        public MapGenerationController(MapConfig config, FinishConfig finishConfig, SphereConfig sphereConfig)
         {
             _config = config;
+            _finishConfig = finishConfig;
+            _sphereConfig = sphereConfig;
         }
 
         public IObservable<IReadOnlyList<TreeInfo>> Generated => _generated;
@@ -59,6 +65,8 @@ namespace UtinComputer.Map
             _trees.Clear();
 
             Vector2 noiseOrigin = random.NextOrigin();
+            Vector3 door = _finishConfig.DoorPosition(_sphereConfig.Direction);
+            Vector2 doorFlat = new(door.x, door.z);
             int slots = Mathf.RoundToInt(_config.MapRadius / _config.TreeSpacing);
             float patchScale = _config.TreeSpacing / _config.ForestPatchSize;
             float densityThreshold = 1f - _config.Density;
@@ -75,7 +83,12 @@ namespace UtinComputer.Map
 
                     Vector3 position = new(x * _config.TreeSpacing + offsetX, 0f, z * _config.TreeSpacing + offsetZ);
 
-                    if (new Vector2(position.x, position.z).magnitude < _config.ClearingRadius)
+                    Vector2 flat = new(position.x, position.z);
+
+                    if (flat.magnitude < _config.ClearingRadius)
+                        continue;
+
+                    if ((flat - doorFlat).magnitude < _finishConfig.DoorClearingRadius)
                         continue;
 
                     if (noiseOrigin.Sample(x, z, patchScale) < densityThreshold)

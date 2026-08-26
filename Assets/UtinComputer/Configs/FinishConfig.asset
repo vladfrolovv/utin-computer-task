@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f1c7a52b0d84e1a9c26d5f4a71b3c08, type: 3}
+  m_Name: FinishConfig
+  m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Finish.FinishConfig
+  <DoorDistance>k__BackingField: 140
+  <DoorClearingRadius>k__BackingField: 18
+  <DoorOpenDistance>k__BackingField: 5
+  <DoorOpenAngle>k__BackingField: 100
+  <DoorOpenTime>k__BackingField: 0.6
+  <DoorCloseTime>k__BackingField: 0.5
+  <CorridorClearance>k__BackingField: 1.5
+  <BlockerGap>k__BackingField: 1.5
+  <MinAdvanceDistance>k__BackingField: 2
+  <HopDistance>k__BackingField: 8
+  <HopTime>k__BackingField: 0.42
+  <HopHeightRatio>k__BackingField: 0.6
+  <HopStretch>k__BackingField: 0.22
+  <HopSquash>k__BackingField: 0.28
+  <HopSettleTime>k__BackingField: 0.18
+  <DoorEnterDistance>k__BackingField: 7
+  <DoorEnterTime>k__BackingField: 0.7
+  <BumpDistance>k__BackingField: 2.5
+  <BumpTime>k__BackingField: 0.28
+  <BumpSquash>k__BackingField: 0.35

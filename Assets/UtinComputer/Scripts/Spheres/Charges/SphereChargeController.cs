@@ -15,6 +15,7 @@ namespace UtinComputer.Spheres.Charges
         private readonly ReactiveProperty<bool> _isCharging = new();
         private readonly ReactiveProperty<bool> _isLost = new();
         private readonly ReactiveProperty<bool> _isBlocked = new();
+        private readonly ReactiveProperty<bool> _isRunning = new();
 
         private readonly Subject<Unit> _chargeStarted = new();
         private readonly Subject<float> _chargeReleased = new();
@@ -35,13 +36,14 @@ namespace UtinComputer.Spheres.Charges
         public IReadOnlyReactiveProperty<bool> IsCharging => _isCharging;
         public IReadOnlyReactiveProperty<bool> IsLost => _isLost;
         public IReadOnlyReactiveProperty<bool> IsBlocked => _isBlocked;
+        public IReadOnlyReactiveProperty<bool> IsRunning => _isRunning;
 
         public IObservable<Unit> ChargeStarted => _chargeStarted;
         public IObservable<float> ChargeReleased => _chargeReleased;
 
-        public Vector3 ShootDirection => _config.ShootDirection.sqrMagnitude > 0f
-            ? _config.ShootDirection.normalized
-            : Vector3.forward;
+        public Vector3 ShootDirection => _config.Direction;
+
+        public bool HasReserve => _radius.Value > _config.TravelReserveRadius;
 
         public Vector3 ShotOffset => ShootDirection * (_radius.Value + _shotRadius.Value);
 
@@ -56,7 +58,7 @@ namespace UtinComputer.Spheres.Charges
         {
             EnsureStarted();
 
-            if (_isLost.Value || _isBlocked.Value || _isCharging.Value)
+            if (!_isRunning.Value || _isLost.Value || _isBlocked.Value || _isCharging.Value || !HasReserve)
                 return;
 
             _chargedVolume = _radius.Value.ToSphereVolume();
@@ -71,6 +73,14 @@ namespace UtinComputer.Spheres.Charges
         public void SetBlocked(bool blocked)
         {
             _isBlocked.Value = blocked;
+        }
+
+        public void SetRunning(bool running)
+        {
+            _isRunning.Value = running;
+
+            if (!running)
+                EndCharge();
         }
 
         public void EndCharge()

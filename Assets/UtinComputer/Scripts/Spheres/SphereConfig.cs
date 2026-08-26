@@ -7,6 +7,7 @@ namespace UtinComputer.Spheres
         [field: Header("Sphere")]
         [field: SerializeField, Min(0f)] public float StartRadius { get; private set; } = 5f;
         [field: SerializeField, Min(0f)] public float MinRadius { get; private set; } = .35f;
+        [field: SerializeField, Min(0f)] public float TravelReserveRadius { get; private set; } = 3f;
         [field: SerializeField] public Vector3 ShootDirection { get; private set; } = Vector3.forward;
 
         [field: Header("Charge")]
@@ -45,5 +46,7 @@ namespace UtinComputer.Spheres
         [field: SerializeField, Min(0f)] public float ReleasePunchRatio { get; private set; } = .22f;
         [field: SerializeField, Min(0f)] public float ReleasePunchTime { get; private set; } = .5f;
         [field: SerializeField, Min(0f)] public float LoseCollapseTime { get; private set; } = .45f;
+
+        public Vector3 Direction => ShootDirection.sqrMagnitude > 0f ? ShootDirection.normalized : Vector3.forward;
     }
 }
