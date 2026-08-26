@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a425795b3b4680b2e818f00b47318d, type: 3}
+  m_Name: ConfigsInstaller
+  m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Installers.ConfigsInstaller
+  sphereConfig: {fileID: 11400000, guid: fa6d5d52f01a4f54db6b6edb1d5517a3, type: 2}

@@ -855,6 +855,7 @@ GameObject:
   - component: {fileID: 630011776}
   - component: {fileID: 630011777}
   - component: {fileID: 630011778}
+  - component: {fileID: 630011779}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -889,9 +890,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.SceneContext
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: a431539cd9ff6834381a5601ab8815e0, type: 2}
   _monoInstallers:
   - {fileID: 630011778}
+  - {fileID: 630011779}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -923,9 +926,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UtinTest.Installers.GameplaySceneInstaller
   cameraView: {fileID: 330585548}
   cameraRigView: {fileID: 1628123789}
+--- !u!114 &630011779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630011775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4933c7f0315466da598dfccfa51de7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Installers.SpheresContextInstaller
   mainSphereView: {fileID: 1614898683}
   shotSphereView: {fileID: 1994208320}
-  sphereConfig: {fileID: 11400000, guid: fa6d5d52f01a4f54db6b6edb1d5517a3, type: 2}
 --- !u!1 &674441011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1813117303
 RectTransform:
   m_ObjectHideFlags: 0
