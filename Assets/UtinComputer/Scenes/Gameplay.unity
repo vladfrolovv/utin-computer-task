@@ -890,8 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.SceneContext
-  _scriptableObjectInstallers:
-  - {fileID: 11400000, guid: a431539cd9ff6834381a5601ab8815e0, type: 2}
+  _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 630011778}
   - {fileID: 630011779}
@@ -940,6 +939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UtinComputer.Installers.SpheresContextInstaller
   mainSphereView: {fileID: 1614898683}
   shotSphereView: {fileID: 1994208320}
+  sphereConfig: {fileID: 11400000, guid: fa6d5d52f01a4f54db6b6edb1d5517a3, type: 2}
 --- !u!1 &674441011
 GameObject:
   m_ObjectHideFlags: 0
