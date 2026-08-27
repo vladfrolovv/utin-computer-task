@@ -10,7 +10,6 @@ namespace UtinComputer.UI
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private PlayButtonView playButton;
         [SerializeField] private RectTransform winPopup;
-        [SerializeField] private RectTransform losePopup;
 
         [Header("Labels")]
         [SerializeField] private string playLabel = "PLAY";
@@ -36,7 +35,6 @@ namespace UtinComputer.UI
         private void Start()
         {
             winPopup.gameObject.SetActive(false);
-            losePopup.gameObject.SetActive(false);
 
             playButton.SetLabel(playLabel);
 
@@ -65,17 +63,20 @@ namespace UtinComputer.UI
         private void OnFinished(FinishOutcome outcome)
         {
             bool won = outcome == FinishOutcome.Win;
-            RectTransform popup = won ? winPopup : losePopup;
+            RectTransform popup = won ? winPopup : null;
 
             playButton.SetLabel(won ? winLabel : loseLabel);
 
             SetVisible(true);
 
-            popup.localScale = Vector3.zero;
-            popup.gameObject.SetActive(true);
+            if (won)
+            {
+                popup.localScale = Vector3.zero;
+                popup.gameObject.SetActive(true);
 
-            _popupTween?.Kill();
-            _popupTween = popup.DOScale(Vector3.one, popupTime).SetEase(Ease.OutBack);
+                _popupTween?.Kill();
+                _popupTween = popup.DOScale(Vector3.one, popupTime).SetEase(Ease.OutBack);
+            }
         }
 
         private void SetVisible(bool visible)
